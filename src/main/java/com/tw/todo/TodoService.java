@@ -30,19 +30,25 @@ public class TodoService {
         if (optionalTodo.isPresent()) {
             return optionalTodo.get();
         }
-        throw new TodoNotFoundException(id);
+        throw new TodoNotFoundException("Not able to find id : " + id);
     }
 
     public Todo updateTodo(Todo todo, Long id) throws TodoNotFoundException {
-        Todo todoToUpdate = getTodo(id);
-        todo.setId(todoToUpdate.getId());
-        return todoRepository.save(todo);
+
+        Optional<Todo> optionalTodoToUpdate = Optional.of(getTodo(id));
+        if (optionalTodoToUpdate.isPresent()) {
+            todo.setId(optionalTodoToUpdate.get().getId());
+            return todoRepository.save(todo);
+        }
+        throw new TodoNotFoundException("Not able to find id : " + id);
     }
 
-    public void deleteTodo(Long id) {
+    public void deleteTodo(Long id) throws TodoNotFoundException {
         Optional<Todo> optionalTodo = todoRepository.findById(id);
         if (optionalTodo.isPresent()) {
             todoRepository.deleteById(id);
+        } else {
+            throw new TodoNotFoundException("Not able to find id : " + id);
         }
     }
 }

@@ -67,7 +67,7 @@ public class TodoServiceTest {
     }
 
     @Test
-    void shouldBeAbleToDeleteATodo() {
+    void shouldBeAbleToDeleteATodo() throws TodoNotFoundException {
 
         Long id = 0L;
         todo = new Todo("Test Delete", false);

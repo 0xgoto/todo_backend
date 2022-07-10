@@ -70,7 +70,7 @@ public class TodoControllerTest {
     }
 
     @Test
-    void shouldBeAbleToDeleteATodo() {
+    void shouldBeAbleToDeleteATodo() throws TodoNotFoundException {
 
         Long id = 1L;
         TodoController todoController = new TodoController(todoService);
