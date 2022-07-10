@@ -1,7 +1,10 @@
 package com.tw.todo;
 
+import com.tw.todo.exceptions.TodoNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -21,10 +24,21 @@ public class TodoServiceTest {
     @Test
     void shouldInteractWithRepositoryWhenGetAllTodosFunctionIsCalled() {
 
-        todoService.getAllTodo();
+        todoService.getAllTodos();
 
         verify(todoRepository, times(1)).findAll();
 
+    }
+
+    @Test
+    void shouldBeAbleToGetATodo() throws TodoNotFoundException {
+
+        Long id = 1L;
+        todo = new Todo("Get a Todo",false);
+        when(todoRepository.findById(id)).thenReturn(Optional.of(todo));
+        todoService.getTodo(id);
+
+        verify(todoRepository,times(1)).findById(id);
     }
 
     @Test
@@ -37,4 +51,6 @@ public class TodoServiceTest {
         verify(todoRepository,times(1)).save(todo);
 
     }
+
+
 }
