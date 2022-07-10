@@ -18,18 +18,22 @@ public class TodoController {
     }
 
     @GetMapping("/todo")
-     ResponseEntity<List <Todo>> getAllTodos()
-    {
-        return new ResponseEntity<>(todoService.getAllTodos(),HttpStatus.OK);
+    ResponseEntity<List<Todo>> getAllTodos() {
+        return new ResponseEntity<>(todoService.getAllTodos(), HttpStatus.OK);
     }
 
     @PostMapping("/todo")
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
-        return new ResponseEntity<>(todoService.createTodo(todo),HttpStatus.CREATED);
+        return new ResponseEntity<>(todoService.createTodo(todo), HttpStatus.CREATED);
     }
 
     @GetMapping("/todo/{id}")
     public ResponseEntity<Todo> getTodo(@PathVariable Long id) throws TodoNotFoundException {
-        return new ResponseEntity<>(todoService.getTodo(id),HttpStatus.OK);
+        return new ResponseEntity<>(todoService.getTodo(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/todo/{id}")
+    public ResponseEntity<Todo> updateTodo(@RequestBody Todo todo, @PathVariable Long id) throws TodoNotFoundException {
+        return new ResponseEntity<>(todoService.updateTodo(todo, id), HttpStatus.ACCEPTED);
     }
 }

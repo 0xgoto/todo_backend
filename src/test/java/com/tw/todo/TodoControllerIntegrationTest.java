@@ -15,8 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -83,8 +82,23 @@ public class TodoControllerIntegrationTest {
 
     }
 
+    @Test
+    void shouldBeAbleToUpdateATodo() throws Exception {
 
+        List<Todo> todos = new ArrayList<>();
+        todos.add(new Todo("Title 1", false));
+        todos.add(new Todo("Title 2", false));
+        todoRepository.saveAll(todos);
+        Todo todoToUpdate = new Todo("Title 2", true);
 
+        mockMvc.perform(put("/todo/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(toJson(todoToUpdate)))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.title").value(todoToUpdate.getTitle()))
+                .andExpect(jsonPath("$.completed").value(todoToUpdate.isCompleted()));
+
+    }
 
     private String toJson(Todo todo) throws JsonProcessingException {
         return new ObjectMapper().writeValueAsString(todo);

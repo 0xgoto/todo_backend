@@ -33,20 +33,39 @@ public class TodoControllerTest {
 
     @Test
     void shouldBeAbleToGetATodo() throws TodoNotFoundException {
+
         Long id = 1L;
         TodoController todoController = new TodoController(todoService);
 
         todoController.getTodo(id);
 
         verify(todoService, times(1)).getTodo(id);
+
     }
 
     @Test
     void shouldBeAbleToCreateATodo() {
+
         Todo todo = new Todo("Topic1", false);
         TodoController todoController = new TodoController(todoService);
+
         todoController.createTodo(todo);
+
         verify(todoService, times(1)).createTodo(todo);
+
     }
 
+
+    @Test
+    void shouldBeAbleToUpdateATodo() throws TodoNotFoundException {
+
+        Long id = 1L;
+        Todo todo = new Todo("Old Topic", false);
+        TodoController todoController = new TodoController(todoService);
+
+        todoController.updateTodo(todo, id);
+
+        verify(todoService, times(1)).updateTodo(todo, id);
+
+    }
 }

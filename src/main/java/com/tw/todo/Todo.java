@@ -17,11 +17,11 @@ public class Todo {
     private boolean completed;
 
 
-
     public Todo(String title, boolean completed) {
         this.title = title;
         this.completed = completed;
     }
+
 
     public Todo() {
     }
@@ -39,6 +39,9 @@ public class Todo {
     }
 
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
 
     @Override
@@ -53,4 +56,6 @@ public class Todo {
     public int hashCode() {
         return Objects.hash(id, title, completed);
     }
+
+
 }

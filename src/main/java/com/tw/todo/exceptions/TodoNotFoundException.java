@@ -9,7 +9,7 @@ public class TodoNotFoundException extends Exception {
     private final HttpStatus status;
 
     public TodoNotFoundException(Long id) {
-        super("Can not find the todo of id : "+id);
+        super("Can not find the todo of id : " + id);
         this.status = BAD_REQUEST;
     }
 
