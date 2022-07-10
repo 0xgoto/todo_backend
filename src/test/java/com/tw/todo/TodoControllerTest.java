@@ -68,4 +68,16 @@ public class TodoControllerTest {
         verify(todoService, times(1)).updateTodo(todo, id);
 
     }
+
+    @Test
+    void shouldBeAbleToDeleteATodo() {
+
+        Long id = 1L;
+        TodoController todoController = new TodoController(todoService);
+
+        todoController.deleteTodo(id);
+
+        verify(todoService, times(1)).deleteTodo(id);
+
+    }
 }

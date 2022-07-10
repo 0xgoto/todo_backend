@@ -26,9 +26,9 @@ public class TodoService {
     }
 
     public Todo getTodo(Long id) throws TodoNotFoundException {
-        Optional<Todo> todoOptional = todoRepository.findById(id);
-        if (todoOptional.isPresent()) {
-            return todoOptional.get();
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+        if (optionalTodo.isPresent()) {
+            return optionalTodo.get();
         }
         throw new TodoNotFoundException(id);
     }
@@ -37,5 +37,12 @@ public class TodoService {
         Todo todoToUpdate = getTodo(id);
         todo.setId(todoToUpdate.getId());
         return todoRepository.save(todo);
+    }
+
+    public void deleteTodo(Long id) {
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+        if (optionalTodo.isPresent()) {
+            todoRepository.deleteById(id);
+        }
     }
 }

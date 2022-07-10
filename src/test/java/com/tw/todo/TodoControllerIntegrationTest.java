@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -97,6 +98,19 @@ public class TodoControllerIntegrationTest {
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.title").value(todoToUpdate.getTitle()))
                 .andExpect(jsonPath("$.completed").value(todoToUpdate.isCompleted()));
+
+    }
+
+    @Test
+    void shouldBeAbleToDeleteATodo() throws Exception {
+
+        List<Todo> todos = new ArrayList<>();
+        todos.add(new Todo("Title 1", false));
+        todos.add(new Todo("Title 2", false));
+        todoRepository.saveAll(todos);
+
+        mockMvc.perform(delete("/todo/0"))
+                .andExpect(status().isOk());
 
     }
 

@@ -36,4 +36,10 @@ public class TodoController {
     public ResponseEntity<Todo> updateTodo(@RequestBody Todo todo, @PathVariable Long id) throws TodoNotFoundException {
         return new ResponseEntity<>(todoService.updateTodo(todo, id), HttpStatus.ACCEPTED);
     }
+
+    @DeleteMapping("/todo/{id}")
+    public ResponseEntity<Todo> deleteTodo(@PathVariable Long id) {
+        todoService.deleteTodo(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

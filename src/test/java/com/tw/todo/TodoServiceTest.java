@@ -65,4 +65,17 @@ public class TodoServiceTest {
         verify(todoRepository, times(1)).save(updatedTodo);
 
     }
+
+    @Test
+    void shouldBeAbleToDeleteATodo() {
+
+        Long id = 0L;
+        todo = new Todo("Test Delete", false);
+        when(todoRepository.findById(id)).thenReturn(Optional.ofNullable(todo));
+
+        todoService.deleteTodo(id);
+
+        verify(todoRepository, times(1)).deleteById(id);
+
+    }
 }
