@@ -13,14 +13,28 @@ public class TodoServiceTest {
 
 
     @BeforeEach
-    void before(){
+    void before() {
         todoRepository = mock(TodoRepository.class);
         todoService = new TodoService(todoRepository);
     }
 
     @Test
     void shouldInteractWithRepositoryWhenGetAllTodosFunctionIsCalled() {
+
         todoService.getAllTodo();
-        verify(todoRepository,times(1)).findAll();
+
+        verify(todoRepository, times(1)).findAll();
+
+    }
+
+    @Test
+    void shouldBeAbleToCreateATodo() {
+
+        todo = new Todo("Test Create", false);
+
+        todoService.createTodo(todo);
+
+        verify(todoRepository,times(1)).save(todo);
+
     }
 }
